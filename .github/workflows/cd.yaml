@@ -24,7 +24,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - 
         name: show image name
-        run: echo douglasdoro/argocd:${{GITHUB_SHA}}
+        run: echo "douglasdoro/argocd:$GITHUB_SHA"
 
       -
         name: Build and push
