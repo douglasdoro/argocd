@@ -42,7 +42,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: "douglasdoro/argocd:${{git_hash}}"
+          tags: "douglasdoro/argocd:${git_hash}"
 
   deploy:
     name: deploy
