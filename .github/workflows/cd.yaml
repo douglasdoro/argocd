@@ -10,6 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+      run: echo "hello"
       git_hash: "v1"
     steps:
       - 
@@ -42,7 +43,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: "douglasdoro/argocd:${git_hash}"
+          tags: "douglasdoro/argocd:${{ env.git_hash }}"
 
   deploy:
     name: deploy
