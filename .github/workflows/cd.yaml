@@ -32,7 +32,7 @@ jobs:
           git_branch=${GITHUB_REF#refs/heads/}
           echo "douglasdoro/argocd:${IMAGE_TAG}"
         env:
-          IMAGE_TAG: FOO
+          IMAGE_TAG: $(git rev-parse --short "$GITHUB_SHA")
         # run: echo "douglasdoro/argocd:$GITHUB_SHA"
 
       -
