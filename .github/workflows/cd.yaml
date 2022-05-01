@@ -22,9 +22,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: define-image-version 
     steps:
-      - 
-        name: checkout
-        uses: actions/checkout@v3
+      # - 
+      #   name: checkout
+      #   uses: actions/checkout@v3
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -62,13 +62,13 @@ jobs:
         name: update k8s
         run: |
           cd k8s
-          kustomize edit set image goapp=douglasdoro/argocd:${GITHUB_SHA}
+          kustomize edit set image goapp=${{needs.define-image-version.outputs.image}}
           cat kustomization.yaml
       - 
         name: commit
         run: |
           git add .
-          git commit -m "Set `app` image tag to `${GITHUB_SHA}`"
+          git commit -m "Set `app` image to `${{needs.define-image-version.outputs.image}}`"
           git push
 
 
