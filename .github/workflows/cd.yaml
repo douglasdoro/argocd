@@ -14,6 +14,9 @@ jobs:
       output1: ${{ steps.step1.outputs.test }}
       output3: ${{ steps.step3.outputs.image_name }}
     steps:
+      - 
+        name: checkout
+        uses: actions/checkout@v3
       - id: step1
         run: echo "::set-output name=test::hello"
       - id: step3
