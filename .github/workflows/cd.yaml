@@ -27,7 +27,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: douglasdoro/argocd:${{env.sha}}, latest
+          repository: douglasdoro/argocd
+          tags: ${{env.sha}}, latest
 
 # name: CD
 
