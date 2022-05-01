@@ -24,7 +24,11 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - 
         name: show image name
-        run: echo "douglasdoro/argocd:$GITHUB_SHA"
+        run: |
+          git_hash=$(git rev-parse --short "$GITHUB_SHA")
+          git_branch=${GITHUB_REF#refs/heads/}
+          echo "douglasdoro/argocd:${git_hash}"
+        # run: echo "douglasdoro/argocd:$GITHUB_SHA"
 
       -
         name: Build and push
