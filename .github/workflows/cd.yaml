@@ -12,15 +12,12 @@ jobs:
     # Map a step output to a job output
     outputs:
       output1: ${{ steps.step1.outputs.test }}
-      output2: ${{ steps.step2.outputs.test }}
       output3: ${{ steps.step3.outputs.image_name }}
     steps:
       - id: step1
         run: echo "::set-output name=test::hello"
-      - id: step2
-        run: echo "::set-output name=test::world"
       - id: step3
-        run: echo "::set-output name=image_name::v2"
+        run: echo "::set-output name=image_name::$(git rev-parse --short "$GITHUB_SHA")"
 
   build:
     runs-on: ubuntu-latest
