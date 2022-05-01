@@ -1,33 +1,65 @@
-name: CD
 
-on: 
+name: ci
+
+on:
   push:
     branches:
-      - main
+      - 'main'
+
 jobs:
-  build:
-    name: Build
+  docker:
     runs-on: ubuntu-latest
     steps:
-      # - 
-      #   name: checkout
-      #   uses: actions/checkout@v2
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      - 
+      -
         name: Login to DockerHub
         uses: docker/login-action@v1 
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: build image and push to docker DockerHub
-        uses: docker/docker/build-push-action@v2
-        with: 
+        name: Build and push
+        uses: docker/build-push-action@v2
+        with:
           push: true
-          repository: douglasdoro/argocd
-          tags: ${{env.sha}}, latest
+          tags: douglasdoro/argocd:latest
+
+
+# name: CD
+
+# on: 
+#   push:
+#     branches:
+#       - main
+# jobs:
+#   build:
+#     name: Build
+#     runs-on: ubuntu-latest
+#     steps:
+#       # - 
+#       #   name: checkout
+#       #   uses: actions/checkout@v2
+#       -
+#         name: Set up QEMU
+#         uses: docker/setup-qemu-action@v1
+#       -
+#         name: Set up Docker Buildx
+#         uses: docker/setup-buildx-action@v1
+#       - 
+#         name: Login to DockerHub
+#         uses: docker/login-action@v1 
+#         with:
+#           username: ${{ secrets.DOCKERHUB_USERNAME }}
+#           password: ${{ secrets.DOCKERHUB_TOKEN }}
+#       -
+#         name: build image and push to docker DockerHub
+#         uses: docker/docker/build-push-action@v2
+#         with: 
+#           push: true
+#           repository: douglasdoro/argocd
+#           tags: ${{env.sha}}, latest
