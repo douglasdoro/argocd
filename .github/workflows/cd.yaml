@@ -64,6 +64,8 @@ jobs:
       - 
         name: commit
         run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "Action"
           git add .
           git commit -m "Set `app` image to `${{needs.define-image-version.outputs.image}}`"
           git push
