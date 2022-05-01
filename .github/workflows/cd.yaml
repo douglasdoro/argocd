@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      git_hash: ""
+      git_hash: "v1"
     steps:
       - 
         name: checkout
