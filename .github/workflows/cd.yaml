@@ -7,14 +7,32 @@ on:
       - 'main'
 
 jobs:
+  job1:
+    runs-on: ubuntu-latest
+    # Map a step output to a job output
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
+      output2: ${{ steps.step2.outputs.test }}
+      output3: ${{ steps.step3.outputs.image_name }}
+    steps:
+      - id: step1
+        run: echo "::set-output name=test::hello"
+      - id: step2
+        run: echo "::set-output name=test::world"
+      - id: step3
+        run: echo "::set-output name=image_name::v2"
+
   build:
     runs-on: ubuntu-latest
-    env:
-      run: |
-          git_hash=$(git rev-parse --short "$GITHUB_SHA")
-          git_branch=${GITHUB_REF#refs/heads/}
-          echo "douglasdoro/argocd:${git_hash}"
-      # git_hash: "v1"
+    needs: job1 
+    # env:
+    #   run: |
+    #       git_hash=$(git rev-parse --short "$GITHUB_SHA")
+    #       git_branch=${GITHUB_REF#refs/heads/}
+    #       echo "douglasdoro/argocd:${git_hash}"
+    #   # git_hash: "v1"
+
+    
     steps:
       - 
         name: checkout
@@ -33,10 +51,11 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - 
         name: show image name
-        run: |
-          git_hash=$(git rev-parse --short "$GITHUB_SHA")
-          git_branch=${GITHUB_REF#refs/heads/}
-          echo "douglasdoro/argocd:${git_hash}"
+        run: echo ${{needs.job1.outputs.output1}} ${{needs.job1.outputs.output3}}
+        # run: |
+        #   git_hash=$(git rev-parse --short "$GITHUB_SHA")
+        #   git_branch=${GITHUB_REF#refs/heads/}
+        #   echo "douglasdoro/argocd:${git_hash}"
         # env:
         #   IMAGE_TAG: $(git rev-parse --short "$GITHUB_SHA")
         # run: echo "douglasdoro/argocd:$GITHUB_SHA"
