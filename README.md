@@ -25,3 +25,13 @@
     kubectl port-forward svc/argocd-server -n argocd 8080:443
 16. Get Argocd initial admin secret 
     kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+
+17. If necessary delete Deploy and service:
+    kubectl delete deploy goapp
+    kubectl delete svc goapp
+
+18. Then create namespace
+    kubectl create namespace goapp
+    
+
+
