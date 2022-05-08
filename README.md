@@ -16,3 +16,12 @@
       $ kubectl get svc
 13. kustomize
     $ kustomize build (dosen't work)
+14. Intall ArgoCD
+    ````bash
+    kubectl create namespace argocd
+    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+    ```
+15. Run port-forward command
+    kubectl port-forward svc/argocd-server -n argocd 8080:443
+16. Get Argocd initial admin secret 
+    kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo

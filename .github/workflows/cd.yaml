@@ -35,7 +35,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push
+        name: Build and push to docker hub
         uses: docker/build-push-action@v2
         with:
           push: true
@@ -61,8 +61,8 @@ jobs:
       - 
         name: commit
         run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "Action"
+          git config --local user.email "action@github.com"
+          git config --local user.name "Deploy Action"
           git add .
           git commit -m "Set `app` image to `${{needs.define-image-version.outputs.image}}`"
           git push
