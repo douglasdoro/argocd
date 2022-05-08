@@ -16,6 +16,8 @@
       $ kubectl get svc
 13. kustomize
     $ kustomize build (dosen't work)
+    # use this
+    $ kubectl kustomize k8s/
 14. Intall ArgoCD
     ````bash
     kubectl create namespace argocd
@@ -32,6 +34,8 @@
 
 18. Then create namespace
     kubectl create namespace goapp
-    
+
+
+References: https://www.youtube.com/watch?v=63HGUgQXD1w
 
 
