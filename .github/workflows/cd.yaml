@@ -34,9 +34,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - 
-        name: show image name
-        run: echo ${{needs.define-image-version.outputs.image}}
       -
         name: Build and push
         uses: docker/build-push-action@v2
